@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hash-service
+  labels:
+    app: hash-service
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: hash-service
+  template:
+    metadata:
+      labels:
+        app: hash-service
+    spec:
+      containers:
+        - name: hash-service
+          image: hash-service:latest
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: "1"
+            requests:
+              memory: 256Mi
+              cpu: "0.2"
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          envFrom:
+            - configMapRef:
+                name: hash-config
