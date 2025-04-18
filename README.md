@@ -20,7 +20,7 @@ This repository contains two trivial Python services (**Hash** and **Length**) d
 
 ```bash
 # Clone & enter repo
- git clone <your‑repo> && cd <your‑repo>
+ git clone https://github.com/Harasisco/Microservices-Observability-in-Kubernetes && cd Microservices-Observability-in-Kubernetes
 
 # One‑liner to build images, install charts, apply manifests, run tests
 cd ./scripts/ && bash deploy_minikube.sh
